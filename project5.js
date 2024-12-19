@@ -2,24 +2,25 @@
 
 // let myColor = ["Red", "Green", "White", "Black"];
 
-//         console.log(myColor.join(", "));
+//  console.log(myColor.join(", "));
 
-//         console.log("Red + Green + White + Black");
+//  console.log("Red + Green + White + Black");
 
-//         console.log(myColor.slice(0, 3).join(", "));
+//  console.log(myColor.slice(0, 3).join(", "));
 
-//         console.log(myColor[0]);
+//  console.log(myColor[0]);
 
-//         console.log(myColor.slice(1, 3).join(", "));
+//  console.log(myColor.slice(1, 3).join(", "));
 
-//         myColor.push("orange");
-//         console.log(myColor.join(", "));
+//  myColor.push("orange");s
+//  console.log(myColor.join(", "));
 
 //********************************************************************** */
 
 // //2).
 
 // ****** using for loop *******
+
 // let arr = [11,22,33,44,55];
 
 // let sum = 0;
@@ -46,7 +47,6 @@
 
 //******************************************************************** */
 
-
 //3).
 
 //   var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -64,7 +64,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-//4).
+//4). program......
 
 //5).
 
@@ -91,18 +91,18 @@
 
 //7).
 
-//numbers = [23,20,17, 12,5, 0, 1, 5, 12, 19, 20];
-//myColor = ["Red", "Green", "White", "Black"];
+// numbers = [23,20,17, 12,5, 0, 1, 5, 12, 19, 20];
+// myColor = ["Red", "Green", "White", "Black"];
 
-// let number = [23, 20, 17, 12, 5, 0, 1, 5, 12, 19, 20];
+let number = [23, 20, 17, 12, 5, 0, 1, 5, 12, 19, 20];
 
-// let ascending = numbers.sort((a, b) => a - b);
-// console.log("Ascending value:", ascending);
+let ascending = number.sort((a, b) => a - b);
+console.log("Ascending value:", ascending);
 
- // Output :- Ascending value: (11) [-23, -20, -17, -12, -5, 0, 1, 5, 12, 19, 20]
+//  Output :- Ascending value: (11) [-23, -20, -17, -12, -5, 0, 1, 5, 12, 19, 20]
 
-// let descending = numbers.sort((a, b) => b - a);
-// console.log("Descending value:", descending); 
+let descending = number.sort((a, b) => b - a);
+console.log("Descending value:", descending); 
 
 // Output :- Descending value: (11) [20, 19, 12, 5, 1, 0, -5, -12, -17, -20, -23]
 
