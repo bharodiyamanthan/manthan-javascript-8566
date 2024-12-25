@@ -3,9 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>slider</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <script src="nested.js"></script>
+     <!-- main -->
+     <main>
+        <!-- images -->
+        <img src="images/car1.jpg" alt="car1" class="slides" />
+        <img src="images/car5.jpg" alt="car2" class="slides" />
+        <img src="images/car3.jpg" alt="car3" class="slides" />
+      </main>
+    
+  
+      <!-- buttons -->
+      <nav class="navigation">
+        <button onclick="goBack()" id="Prev">Prev</button>
+        <button onclick="goNext()" id="Next">Next</button>
+      </nav>
+
+
+      <script>
+       
+let slide = document.querySelectorAll(".slides");
+console.log(slide);
+let currentElement;
+let totalLength = slide.length;
+let counter = 0;
+
+slide.forEach((slides, index) => {
+  slides.style.left = `${index * 100}%`;
+});
+
+function goBack() {
+  counter--;
+  slider();
+}
+function goNext() {
+  counter++;
+  slider();
+}
+function slideNext() {
+  slide.forEach((slider, index) => {
+    slider.style.transform = `translateX(-${counter * 100}%)`;
+    document.getElementById("Next").disabled = false;
+  });
+}
+function startagain() {
+  slide.forEach((slider, index) => {
+    slider.style.transform = `translateX(0%)`;
+    counter = 0;
+  });
+}
+
+function slider() {
+  counter < totalLength ? slideNext() : startagain();
+};
+ 
+      </script>
 </body>
 </html>
