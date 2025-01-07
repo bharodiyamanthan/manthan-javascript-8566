@@ -2,35 +2,25 @@
 
 // 1).
 
-// class School {
-//     constructor(name, email, number) {
-//         this.name = name;
-//         this.email = email;
-//         this.number = number;
+// class school{
+//     student(name,email,number){
+//         console.log("student name is ==>",name);
+//         console.log("student email is ==>",email);
+//         console.log("student number is ==>",number);
+        
+//     }
+//     faculty(name,email,number){
+//         console.log("faculty name is ==>",name);
+//         console.log("faculty email is ==>",email);
+//         console.log("faculty number is ==>",number);
 //     }
 // }
 
-// class Student extends School {
-//     student() {
-//         console.log("Student Name:", this.name);
-//         console.log("Student Email:", this.email);
-//         console.log("Student Number:", this.number);
-//     }
-// }
+// let obj = new school();
+// obj.student("Manthan", "manthan@gmail.com", 8320664253);
 
-// class Faculty extends School {
-//     faculty() {
-//         console.log("Faculty Name:", this.name);
-//         console.log("Faculty Email:", this.email);
-//         console.log("Faculty Number:", this.number);
-//     }
-// }
-
-// let obj = new Student("Manthan", "manthan@gmail.com", 8320664253);
-// obj.student();
-
-// let obj1 = new Faculty("Girish Sir", "girish@gmail.com", 7854256985);
-// obj1.faculty();
+// let obj1 = new school();
+// obj1.faculty("Girish'Sir", "girish@gmail.com", 7854256985);
 
 ///////////////////////////////////////////////////////////////////
 
@@ -61,18 +51,18 @@
 
 // 3).
 
-class employee{
-    constructor(msg){
-        this.msg = msg;
-    }
-    sayhello(){
-        console.log("this message is ==>",this.msg);
+// class employee{
+//     constructor(msg){
+//         this.msg = msg;
+//     }
+//     sayhello(){
+//         console.log("this message is ==>",this.msg);
         
-    }
-}
+//     }
+// }
 
-let emp = new employee("good morning...!!!");
-emp.sayhello();
+// let emp = new employee("good morning...!!!");
+// emp.sayhello();
 
 
 /////////////////////////////////////////////////////////////////////////////
