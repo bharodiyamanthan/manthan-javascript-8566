@@ -1,0 +1,11 @@
+#countdown{
+    font-size :60px;
+    font-weight: 700;
+    color: red;
+  }
+  body{
+    background-color: antiquewhite;
+  }
+  .timer{
+    padding-top: 50px;
+  }
