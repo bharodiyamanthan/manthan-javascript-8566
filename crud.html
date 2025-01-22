@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div align="center" id="add-form" >
+        <form >
+            <h2>add Book form</h2>
+            <table>
+                <tr>
+                    <td>Book name:</td>
+                    <td><input type="text" id="bookname"></td>
+                </tr>
+                <tr>
+                    <td>Book Price:</td>
+                    <td><input type="text" id="price"></td>
+                </tr>
+                <tr>
+                    <td>Book Category:</td>
+                    <td><input type="text" id="category"></td>
+                </tr>
+                <tr>
+                    <td>Book Author:</td>
+                    <td><input type="text" id="author"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+    <div align="center" id="edit-form" style="display: none;">
+        <form >
+            <h2>update Book form</h2>
+            <table>
+                <tr>
+                    <td>Book name:</td>
+                    <td><input type="text" id="editbookname"></td>
+                </tr>
+                <tr>
+                    <td>Book Price:</td>
+                    <td><input type="text" id="editprice"></td>
+                </tr>
+                <tr>
+                    <td>Book Category:</td>
+                    <td><input type="text" id="editcategory"></td>
+                </tr>
+                <tr>
+                    <td>Book Author:</td>
+                    <td><input type="text" id="editauthor"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+
+    <div>
+        <table align="center" border="1" cellpadding="15">
+            <thead>
+                <td>#</td>
+                <td>bookname</td>
+                <td>price</td>
+                <td>category</td>
+                <td>author</td>
+                <td>action</td>
+
+            </thead>
+            <tbody id="bookView">
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="local.js"></script>
+</body>
+
+</html>
