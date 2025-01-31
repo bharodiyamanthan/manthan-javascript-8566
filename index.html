@@ -1,203 +1,199 @@
- <!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-    <link rel="stylesheet" href="css/style.css" type="text/css">
- 
-    <link rel="stylesheet" href="remix/remixicon.css" type="text/css">
+    <title>Product Management & Cart</title>
+
+    <a href="addcart.html"><button>Back to Shopping</button></a>
+    <style>
+        .cart-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; 
+    padding: 10px;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.cart-item {
+    min-width: 250px; 
+    flex-shrink: 0; 
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card, .cart-item {
+            width: 250px;
+            padding: 15px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            background: rgb(225, 66, 66);
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #68819b;
+            color: white;
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        .remove { background: red; }
+        .update { background: green; }
+        .cart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cart-item p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
+    <h2>Product Management</h2>
+    <form id="product-form" style="text-align:center; margin-bottom: 20px;">
+        <label for="">Product Name:</label>
+        <input type="text" id="title" placeholder="Product Name" required><br><br>
+        <label for="">Product Price:</label>
+        <input type="number" id="price" placeholder="Price" required><br><br>
+        <label for="">Product Image:</label>
+        <input type="text" id="image" placeholder="Image URL" required><br><br>
+        <button type="submit">Add Product</button>
+    </form>
     
-    <header>
-        <div class="container">
-           <div class="d-flex justify-space-between align-items-center">
-            <div class="logo">
-                <a href="javascript:void(0)"><img src="images/logo.png" s alt="logo" width="160px"></a>
-            </div>
-           
-            <div class="social">
-                <a href="javascript:void(0)"><i class="ri-shopping-cart-2-fill"></i></a>
-                <a href="javascript:void(0)"><i class="ri-search-line"></i></a>    
-            </div>
-           </div>
-        </div>
-    </header>
+    <h3>Products</h3>
+    <div class="container" id="product-container"></div>
 
-
-    <section class="product">
-      
-        <div class="products d-flex justify-content-center">
-            <div class="product-img">
-                <img src="images/pooma.jpg" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Shoes</h3>
-                 
-                    <h2>85$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/cap.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Cap</h3>
-                  
-                    <h2>25$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/yellow.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>t shirt</h3>
-                  
-                    <h2>55$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>     
-        </div> 
-
-
-
-        <div class="products d-flex justify-content-center">
-            <div class="product-img">
-                <img src="images/bag.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Bag</h3>
-                    
-                    <h2>25$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/man.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Shirt</h3>
-                
-                    <h2>70$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/watch.jpg" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Watch</h3>
-                 
-                    <h2>135$</h2>
-                    <a href=""><i class="ri-shopping-cart-line"></i>Add to Cart</a>
-                </div>
-            </div>     
-        </div>
-        </section>  
+    <h2>Shopping Cart</h2>
+    <div id="cart-container" class="cart-container"></div>
+    <div style="text-align:center;">
+        <button onclick="clearCart()">Clear Cart</button>
+    </div>
     
-    <main>
+    <script>
+        let productContainer = document.getElementById("product-container");
+        let productForm = document.getElementById("product-form");
+        let cartContainer = document.getElementById("cart-container");
 
-        <script src="cart.js"></script>
-</body>
-</html> 
- -->
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        displayProducts();
+        loadCart();
+
+        productForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            let title = document.getElementById("title").value;
+            let price = document.getElementById("price").value;
+            let image = document.getElementById("image").value;
+            
+            let newProduct = { id: Date.now(), title, price, image };
+            products.push(newProduct);
+            localStorage.setItem("products", JSON.stringify(products));
+            displayProducts();
+            productForm.reset();
+        });
+
+        function displayProducts() {
+            productContainer.innerHTML = "";
+            products.forEach(product => {
+                let card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3>${product.title}</h3>
+                    <p>Price: $${product.price}</p>
+                    <button onclick='editProduct(${product.id})'>Edit</button>
+                    <button onclick='deleteProduct(${product.id})'>Delete</button>
+                    <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+                `;
+                productContainer.appendChild(card);
+            });
+        }
+
+        function editProduct(id) {
+            let product = products.find(p => p.id === id);
+            if (product) {
+                document.getElementById("title").value = product.title;
+                document.getElementById("price").value = product.price;
+                document.getElementById("image").value = product.image;
+                deleteProduct(id);
+            }
+        }
+
+        function deleteProduct(id) {
+            products = products.filter(product => product.id !== id);
+            localStorage.setItem("products", JSON.stringify(products));
+            displayProducts();
+        }
+
+        function addToCart(product) {
+            let existingProduct = cart.find(item => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                product.quantity = 1;
+                cart.push(product);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id); 
+    localStorage.setItem("cart", JSON.stringify(cart)); 
+    loadCart(); 
+}
 
 
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <link rel="stylesheet" href="remix/remixicon.css" type="text/css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="d-flex justify-space-between align-items-center">
-                <div class="logo">
-                    <a href="javascript:void(0)"><img src="images/logo.png" alt="logo" width="160px"></a>
-                </div>
-                <div class="social">
-                    <a href="javascript:void(0)">
-                        <i class="ri-shopping-cart-2-fill"></i>
-                        <span id="cart-count">0</span> <!-- Cart count here -->
-                    </a>
-                    <a href="javascript:void(0)"><i class="ri-search-line"></i></a>    
-                </div>
-            </div>
-        </div>
-    </header>
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart)); 
+        loadCart(); 
+    }
 
-    <section class="product">
-        <div class="products d-flex justify-content-center">
-            <div class="product-img">
-                <img src="images/pooma.jpg" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Shoes</h3>
-                    <h2>85$</h2>
-                    <button class="add-to-cart-btn" data-id="1" data-name="Shoes" data-price="85">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/cap.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Cap</h3>
-                    <h2>25$</h2>
-                    <button class="add-to-cart-btn" data-id="2" data-name="Cap" data-price="25">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/yellow.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>T-shirt</h3>
-                    <h2>55$</h2>
-                    <button class="add-to-cart-btn" data-id="3" data-name="T-shirt" data-price="55">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>     
-        </div> 
 
-        <div class="products d-flex justify-content-center">
-            <div class="product-img">
-                <img src="images/bag.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Bag</h3>
-                    <h2>25$</h2>
-                    <button class="add-to-cart-btn" data-id="4" data-name="Bag" data-price="25">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/man.webp" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Shirt</h3>
-                    <h2>70$</h2>
-                    <button class="add-to-cart-btn" data-id="5" data-name="Shirt" data-price="70">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            <div class="product-img">
-                <img src="images/watch.jpg" alt="" width="300px" height="300px">
-                <div class="product-content text-center">
-                    <h3>Watch</h3>
-                    <h2>135$</h2>
-                    <button class="add-to-cart-btn" data-id="6" data-name="Watch" data-price="135">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                </div>
-            </div>     
-        </div>
-    </section>  
 
-    <main>
-        <script src="cart.js"></script>
-    </main>
+        function loadCart() {
+            cartContainer.innerHTML = "";
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty!</p>";
+                return;
+            }
+            cart.forEach((item, index) => {
+                let div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <p>${item.title}</p>
+                    <p>Price: $${item.price}</p>
+                    <p>Quantity: <button onclick="updateQuantity(${index}, -1)">-</button> ${item.quantity} <button onclick="updateQuantity(${index}, 1)">+</button></p>
+                    <button class="remove" onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartContainer.appendChild(div);
+            });
+        }
+    </script>
 </body>
 </html>
-

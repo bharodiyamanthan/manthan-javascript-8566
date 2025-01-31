@@ -1,254 +1,115 @@
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Product Management</title>
-      <style>
-          * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-          }
-          nav {
-              width: 100%;
-              background-color:#f5f5f5;
-              display: flex;
-              justify-content: space-evenly;
-              padding: 20px;
-          }
-          nav a {
-              font-size: 20px;
-              text-decoration: none;
-              width: 25%;
-          }
-          .container {
-              display: flex;
-              flex-wrap: wrap;
-              gap: 10px;
-              padding: 20px;
-          }
-          .card {
-              padding: 20px;
-              width: 230px;
-              text-align: center;
-              background-color: white;
-              box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-              border-radius: 10px;
-          }
-          .card button {
-              width: 48%;
-              margin-top: 5px;
-              padding: 5px;
-              border-radius: 5px;
-              border: none;
-              cursor: pointer;
-          }
-          img {
-              width: 200px;
-              height: 200px;
-          }
-          .form-container {
-              margin: 20px auto;
-              padding: 20px;
-              background-color: #f5f5f5;
-              border-radius: 10px;
-              width: 300px;
-              text-align: center;
-          }
-          .form-container input,
-          .form-container button {
-              margin: 10px 0;
-              width: 100%;
-              padding: 10px;
-              border-radius: 8px;
-              border: 1px solid #ddd;
-          }
-          .form-container button {
-              background-color: green;
-              color: white;
-              cursor: pointer;
-          }
-      </style>
-  </head>
-  <body>
-      <nav>
-          <a href="#">HOME</a>
-          <a href="#">LOG IN</a>
-          <a href="#">SIGN IN</a>
-          <a href="cart.html">CART</a>
-          <input type="text" id="searchkey" placeholder="Search product">
-      </nav>
-      
-      <center>
-          <div class="form-container">
-              <h3 id="form-title">Add Product</h3>
-              <input type="text" id="productTitle" placeholder="Product Title" />
-              <input type="number" id="productPrice" placeholder="Product Price" />
-              <input type="text" id="productImage" placeholder="Product Image URL" />
-              <button onclick="addOrUpdateProduct()">Save Product</button>
-              <input type="hidden" id="editProductId">
-          </div>
-      </center>
-      
-      <div class="container" id="productContainer"></div>
-      
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    let productContainer = document.querySelector("#productContainer");
-    let products = JSON.parse(localStorage.getItem("products")) || [];
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        .cart-container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        img {
+            width: 50px;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .remove {
+            background: red;
+            color: white;
+        }
+        .update {
+            background: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
 
-    function displayProducts() {
-        productContainer.innerHTML = "";
-        products.forEach((product) => {
-            let card = `
-                <div class="card">
-                    <img src="${product.image}" alt="Product Image">
+    <h2>Shopping Cart</h2>
+    <div class="cart-container" id="cart-container"></div>
+    <button onclick="clearCart()">Clear Cart</button>
+    <a href="index.html"><button>Back to Shopping</button></a>
+
+    <script>
+        function loadCart() {
+            let cartContainer = document.getElementById("cart-container");
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+            cartContainer.innerHTML = "";
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty!</p>";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                let div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `
+                    <img src="${item.images[0]}" alt="${item.title}">
+                    <p>${item.title}</p>
+                    <p>Price: $${item.price}</p>
+                    <p>Quantity: <button onclick="updateQuantity(${index}, -1)">-</button> ${item.quantity} <button onclick="updateQuantity(${index}, 1)">+</button></p>
+                    <button class="remove" onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartContainer.appendChild(div);
+            });
+        }
+
+        function displayProducts() {
+            productContainer.innerHTML = "";
+            products.forEach(product => {
+                let card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
                     <h3>${product.title}</h3>
                     <p>Price: $${product.price}</p>
-                    <button onclick="editProduct(${product.id})" style="background-color: orange;">Edit</button>
-                    <button onclick="deleteProduct(${product.id})" style="background-color: red; color: white;">Delete</button>
-                    <button onclick="addToCart(${product.id})" style="background-color: blue; color: white;">Add to Cart</button>
-                </div>
-            `;
-            productContainer.innerHTML += card;
-        });
-    }
-
-    window.addOrUpdateProduct = function () {
-        let title = document.getElementById("productTitle").value;
-        let price = document.getElementById("productPrice").value;
-        let image = document.getElementById("productImage").value;
-        let editId = document.getElementById("editProductId").value;
-
-        if (!title || !price || !image) {
-            alert("Please fill in all fields!");
-            return;
+                    <button onclick='editProduct(${product.id})'>Edit</button>
+                    <button onclick='deleteProduct(${product.id})'>Delete</button>
+                    <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+                `;
+                productContainer.appendChild(card);
+            });
         }
 
-        if (editId) {
-            let index = products.findIndex(p => p.id == editId);
-            products[index] = { id: parseInt(editId), title, price, image };
-            document.getElementById("form-title").textContent = "Add Product";
-        } else {
-            let newProduct = { id: Date.now(), title, price, image };
-            products.push(newProduct);
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart[index].quantity + change > 0) {
+                cart[index].quantity += change;
+            } else {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
         }
 
-        localStorage.setItem("products", JSON.stringify(products));
-        displayProducts();
-        resetForm();
-    }
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
 
-    window.editProduct = function (id) {
-        let product = products.find(p => p.id == id);
-        document.getElementById("productTitle").value = product.title;
-        document.getElementById("productPrice").value = product.price;
-        document.getElementById("productImage").value = product.image;
-        document.getElementById("editProductId").value = product.id;
-        document.getElementById("form-title").textContent = "Edit Product";
-    }
+        function clearCart() {
+            localStorage.removeItem("cart");
+            loadCart();
+        }
 
-    window.deleteProduct = function (id) {
-        products = products.filter(p => p.id != id);
-        localStorage.setItem("products", JSON.stringify(products));
-        displayProducts();
-    }
+        window.onload = loadCart;
+    </script>
 
-    window.addToCart = function (id) {
-        let product = products.find(p => p.id == id);
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert("Product added to cart!");
-    }
-
-    function resetForm() {
-        document.getElementById("productTitle").value = "";
-        document.getElementById("productPrice").value = "";
-        document.getElementById("productImage").value = "";
-        document.getElementById("editProductId").value = "";
-    }
-
-    displayProducts();
-});
-
-          let productContainer = document.querySelector("#productContainer");
-          let products = JSON.parse(localStorage.getItem("products")) || [];
-          let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-          function displayProducts() {
-              productContainer.innerHTML = "";
-              products.forEach((product) => {
-                  let card = `
-                      <div class="card">
-                          <img src="${product.image}" alt="">
-                          <h3>${product.title}</h3>
-                          <p>Price: $${product.price}</p>
-                          <button onclick="editProduct(${product.id})" style="background-color: orange;">Edit</button>
-                          <button onclick="deleteProduct(${product.id})" style="background-color: red; color: white;">Delete</button>
-                          <button onclick="addToCart(${product.id})" style="background-color: blue; color: white;">Add to Cart</button>
-                      </div>
-                  `;
-                  productContainer.innerHTML += card;
-              });
-          }
-  
-          function addOrUpdateProduct() {
-              let title = document.getElementById("productTitle").value;
-              let price = document.getElementById("productPrice").value;
-              let image = document.getElementById("productImage").value;
-              let editId = document.getElementById("editProductId").value;
-              
-              if (!title || !price || !image) {
-                  alert("Please fill in all fields!");
-                  return;
-              }
-              
-              if (editId) {
-                  let index = products.findIndex(p => p.id == editId);
-                  products[index] = { id: editId, title, price, image };
-                  document.getElementById("form-title").textContent = "Add Product";
-              } else {
-                  let newProduct = { id: Date.now(), title, price, image };
-                  products.push(newProduct);
-              }
-  
-              localStorage.setItem("products", JSON.stringify(products));
-              displayProducts();
-              resetForm();
-          }
-  
-          function editProduct(id) {
-              let product = products.find(p => p.id == id);
-              document.getElementById("productTitle").value = product.title;
-              document.getElementById("productPrice").value = product.price;
-              document.getElementById("productImage").value = product.image;
-              document.getElementById("editProductId").value = product.id;
-              document.getElementById("form-title").textContent = "Edit Product";
-          }
-  
-          function deleteProduct(id) {
-              products = products.filter(p => p.id !== id);
-              localStorage.setItem("products", JSON.stringify(products));
-              displayProducts();
-          }
-  
-          function addToCart(id) {
-              let product = products.find(p => p.id == id);
-              cart.push(product);
-              localStorage.setItem("cart", JSON.stringify(cart));
-              alert("Product added to cart!");
-          }
-  
-          function resetForm() {
-              document.getElementById("productTitle").value = "";
-              document.getElementById("productPrice").value = "";
-              document.getElementById("productImage").value = "";
-              document.getElementById("editProductId").value = "";
-          }
-  
-          displayProducts();
-      </script>
-  </body>
-  </html>
+</body>
+</html>
