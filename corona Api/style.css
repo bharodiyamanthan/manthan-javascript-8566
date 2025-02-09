@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url("https://www.shutterstock.com/image-illustration/coronavirus-covid19-infection-3d-medical-600nw-1717171993.jpg");
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin: 0;
+    padding: 50px;
+}
+h1 {
+    margin-bottom: 30px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+input[type="date"] {
+    padding: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    border: 1px solid #ecc0c0;
+    border-radius: 10px;
+    margin-bottom: 20px;   
+}
+.box{
+    margin-bottom:20px ;
+    margin-top: 150px;
+    height: 350px;
+    padding: 20px;
+    width: 500px;
+    border-radius: 20px;
+    background-image: url("https://media.istockphoto.com/id/1297710407/photo/coronavirus-covid-19-cells-with-human-red-blood-cells-in-human-body-influenza-background.jpg?s=1024x1024&w=is&k=20&c=f7Co20Ney6pPcGtjuaq74nBUvgGdrwWVLWTUZRpFW64=");
+}
+.card {
+    text-align: center;
+    border-radius: 5%;
+    padding: 10px;
+    background-color: #c27e9a;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.card p {
+    margin: 5px 0;
+}
+.card h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    color:rgb(61, 2, 38);
+}
+.data {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    margin: 10px 0px;
+}
+.box ,.data input{
+    text-align: center;
+}
+.data input{
+    margin-left: 130px;
+}
+.data input{
+    background-color: #ecc0c0;
+    font-size: 15px;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.box h1{
+    color:bisque;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.box input{
+    background-color: #ecc0c0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    font-size: 15px;
+}
+.data input[type="text"] {
+    padding: 10px;
+    border: 1px solid #cccccc4b;
+    width: 200px;
+    border-radius: 8px;
+}
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    border: none;
+    background-color: #c58332;
+    text-align: center;
+    border-radius: 8px; 
+}
+button:hover {
+    background-color: #cc4e91;
+}
